@@ -1,0 +1,10 @@
+language: generic
+sudo: required # se necesita permisos de administrador para ejecutar el build
+services:
+  - docker # decirle a travis que necesita docker CLI preinstalado
+
+before_install: # configuraciones que se necesitan antes de correr las pruebas
+  - docker build -t jozsef182/docker-react -f Dockerfile.dev .
+
+script: # es la que debe tener todos los comandos que se van a ejecutar para poder correr el test suite
+  - docker run -e CI=true jozsef182/docker-react npm run test
